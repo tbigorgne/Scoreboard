@@ -1,0 +1,67 @@
+﻿@model List<Scoreboard.Models.Performance>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Score list</title>
+    <style type="text/css">
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        table {
+            border-collapse: collapse;
+            text-align: center;
+        }
+        div {
+            margin: auto;
+        }
+        div#sort {
+            text-align: right;
+        }
+        td, th {
+            border: 1px solid black;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="sort">
+        @Html.ActionLink("Sort", "Index", "Home", new { sorting = true }, null)
+        <br />
+        <br />
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+            @{
+            foreach (Scoreboard.Models.Performance performance in Model)
+            {
+                <tr>
+                    <td>@performance.Name</td>
+                    <td>@performance.Score</td>
+                </tr>
+        }
+            }
+        </table>
+    </div>
+    <br />
+    <div>
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            @Html.Label("Enter new performance : ")
+            @Html.TextBox("nameValue")
+            @Html.TextBox("scoreValue")
+            <input type="submit" value="Add" />
+        }
+        <br />
+        @Html.ActionLink("Clear list", "ClearList", "Home")
+    </div>
+</body>
+</html>
